@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 //constants for enum values
-import role from "../utils/constants.js";
+import { role } from "../utils/constants.js";
 
 const UserSchema = new Schema({
   name: {
@@ -22,6 +22,10 @@ const UserSchema = new Schema({
     required: true,
   },
   role: {
-    enum: [Object.values(role)],
+    type: String,
+    enum: Object.values(role),
+    required: true,
   },
 });
+
+export const UserModel = mongoose.model("UserModel", UserSchema);
