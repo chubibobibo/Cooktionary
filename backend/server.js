@@ -4,8 +4,20 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
+//route imports
+import userRoute from "./routes/userRoute.js";
+
 //parsing json
-app.use(express.json);
+app.use(express.json());
+
+//connecting to database
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(process.env.MONGO_URL);
+}
+
+//user routes
+app.use("/api/user", userRoute);
 
 //middleware for not found pages
 app.use("*", (req, res) => {
